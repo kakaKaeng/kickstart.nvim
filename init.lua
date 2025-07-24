@@ -696,12 +696,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          {
-            'rafamadriz/friendly-snippets',
-            config = function()
-              require('luasnip.loaders.from_vscode').lazy_load()
-            end,
-          },
+          -- {
+          --   'rafamadriz/friendly-snippets',
+          --   config = function()
+          --     require('luasnip.loaders.from_vscode').lazy_load()
+          --   end,
+          -- },
         },
         opts = {},
       },
@@ -792,6 +792,23 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      -- gS - Toggle arguments
+      require('mini.splitjoin').setup()
+
+      require('mini.move').setup {
+        mappings = {
+          left = '<C-S-h>',
+          right = '<C-S-l>',
+          down = '<C-S-j>',
+          up = '<C-S-k>',
+
+          line_left = '<C-S-h>',
+          line_right = '<C-S-l>',
+          line_down = '<C-S-j>',
+          line_up = '<C-S-k>',
+        },
+      }
+
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -817,7 +834,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go', 'python' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -850,7 +867,7 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'custom.plugins.nvim-ufo',
   require 'custom.plugins.text-case',
@@ -859,6 +876,8 @@ require('lazy').setup({
   require 'custom.plugins.oil',
   require 'custom.plugins.snipe',
   require 'custom.plugins.go',
+  require 'custom.plugins.yazi',
+  require 'custom.plugins.nvim-treesitter-context',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
