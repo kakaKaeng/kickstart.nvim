@@ -706,6 +706,7 @@ require('lazy').setup({
         opts = {},
       },
       'folke/lazydev.nvim',
+      'fang2hou/blink-copilot',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -751,9 +752,15 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'copilot', 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          copilot = {
+            name = 'copilot',
+            module = 'blink-copilot',
+            score_offset = 10,
+            async = true,
+          },
         },
       },
 
@@ -867,7 +874,7 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'custom.plugins.nvim-ufo',
   require 'custom.plugins.text-case',
@@ -878,6 +885,7 @@ require('lazy').setup({
   require 'custom.plugins.go',
   require 'custom.plugins.yazi',
   require 'custom.plugins.nvim-treesitter-context',
+  require 'custom.plugins.copilot',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
@@ -923,5 +931,7 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
+vim.keymap.set('n', '<S-h>', ':tabprevious<CR>', { desc = 'Previous Tab' })
+vim.keymap.set('n', '<S-l>', ':tabnext<CR>', { desc = 'Next Tab' })
 -- Highlight todo, notes, etc in comments
 require 'colorscheme' -- Load themes
