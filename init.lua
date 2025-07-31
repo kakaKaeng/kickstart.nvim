@@ -154,7 +154,7 @@ vim.o.splitbelow = true
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', space = '·' }
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -386,6 +386,11 @@ require('lazy').setup({
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
+    opts = {
+      inlay_hint = {
+        enable = true, -- Enable inlay hints for LSP servers that support them
+      },
+    },
     config = function()
       -- Brief aside: **What is LSP?**
       --
@@ -567,8 +572,41 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {
-          completeUnimported = true,
-          usePlaceholders = true,
+          settings = {
+            gopls = {
+              gofumpt = true,
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+                useany = true,
+              },
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+              semanticTokens = true,
+            },
+          },
         },
         -- pyright = {},
         -- rust_analyzer = {},
@@ -706,7 +744,7 @@ require('lazy').setup({
         opts = {},
       },
       'folke/lazydev.nvim',
-      'fang2hou/blink-copilot',
+      -- 'fang2hou/blink-copilot',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -752,15 +790,15 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'copilot', 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-          copilot = {
-            name = 'copilot',
-            module = 'blink-copilot',
-            score_offset = 10,
-            async = true,
-          },
+          -- copilot = {
+          --   name = 'copilot',
+          --   module = 'blink-copilot',
+          --   score_offset = 10,
+          --   async = true,
+          -- },
         },
       },
 
@@ -777,6 +815,10 @@ require('lazy').setup({
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
+
+      menu = {
+        border = 'rounded',
+      },
     },
   },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
@@ -841,7 +883,24 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go', 'python' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'go',
+        'gomod',
+        'gowork',
+        'gosum',
+        'python',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -874,7 +933,7 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'custom.plugins.nvim-ufo',
   require 'custom.plugins.text-case',
@@ -885,7 +944,9 @@ require('lazy').setup({
   require 'custom.plugins.go',
   require 'custom.plugins.yazi',
   require 'custom.plugins.nvim-treesitter-context',
-  require 'custom.plugins.copilot',
+  -- require 'custom.plugins.copilot',
+  require 'custom.plugins.nvim-dbee',
+  require 'custom.plugins.lualine',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
