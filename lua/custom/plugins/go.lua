@@ -8,9 +8,9 @@ return {
   opts = {
     -- lsp_keymaps = false,
     -- other options
-    -- lsp_inlay_hints = {
-    --   enable = true,
-    -- },
+    lsp_inlay_hints = {
+      enable = true,
+    },
   },
   config = function(lp, opts)
     require('go').setup(opts)
