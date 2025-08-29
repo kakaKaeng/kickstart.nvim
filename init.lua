@@ -608,7 +608,35 @@ require('lazy').setup({
             },
           },
         },
-        -- pyright = {},
+
+        harper_ls = {
+          settings = {
+            ['harper-ls'] = {
+              linters = {
+                SentenceCapitalization = false,
+                SpellCheck = true,
+              },
+            },
+          },
+        },
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = 'standard',
+                reportAny = 'none',
+                useLibraryCodeForTypes = true,
+                diagnosticMode = 'workspace',
+                autoSearchPaths = true,
+                inlayHints = {
+                  callArgumentNames = true,
+                },
+                extraPaths = {},
+              },
+              pythonPath = vim.fn.getcwd() .. '/.venv/bin/python',
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -953,13 +981,13 @@ require('lazy').setup({
   require 'custom.plugins.colorscheme',
   require 'custom.plugins.telescope',
   require 'custom.plugins.oil',
-  require 'custom.plugins.snipe',
   require 'custom.plugins.go',
   require 'custom.plugins.yazi',
   require 'custom.plugins.nvim-treesitter-context',
   -- require 'custom.plugins.copilot',
   require 'custom.plugins.nvim-dbee',
   require 'custom.plugins.lualine',
+  -- require 'custom.plugins.uv',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
