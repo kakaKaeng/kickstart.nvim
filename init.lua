@@ -571,54 +571,6 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {
-          settings = {
-            gopls = {
-              gofumpt = true,
-              codelenses = {
-                gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
-              },
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                nilness = true,
-                unusedparams = true,
-                unusedwrite = true,
-                useany = true,
-              },
-              usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
-              semanticTokens = true,
-            },
-          },
-        },
-
-        harper_ls = {
-          settings = {
-            ['harper-ls'] = {
-              linters = {
-                SentenceCapitalization = false,
-                SpellCheck = true,
-              },
-            },
-          },
-        },
         basedpyright = {
           settings = {
             basedpyright = {
@@ -694,6 +646,61 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+
+      -- gopls can't set config in servers. mason lspconfig have issue can't set settings.
+      require('lspconfig').gopls.setup {
+        settings = {
+          gopls = {
+            gofumpt = true,
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            analyses = {
+              nilness = true,
+              unusedparams = true,
+              unusedwrite = true,
+              useany = true,
+              packageComment = false,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+            semanticTokens = true,
+          },
+        },
+      }
+
+      -- harper_ls can't set config in servers. mason lspconfig have issue can't set settings.
+      -- use harper from internal install by brew
+      require('lspconfig').harper_ls.setup {
+        settings = {
+          ['harper-ls'] = {
+            userDictPath = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add',
+            linters = {
+              SentenceCapitalization = false,
+              SpellCheck = true,
+              ToDoHyphen = false,
+            },
+          },
         },
       }
     end,
@@ -987,6 +994,7 @@ require('lazy').setup({
   -- require 'custom.plugins.copilot',
   require 'custom.plugins.nvim-dbee',
   require 'custom.plugins.lualine',
+  require 'custom.plugins.nvim-lsp-endhints',
   -- require 'custom.plugins.uv',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1020,6 +1028,8 @@ require('lazy').setup({
     },
   },
 })
+
+vim.o.spellfile = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
 
 vim.api.nvim_set_hl(0, 'GitSignsAdd', { bg = '#003300' })
 vim.api.nvim_set_hl(0, 'GitSignsChange', { bg = '#333300' })
