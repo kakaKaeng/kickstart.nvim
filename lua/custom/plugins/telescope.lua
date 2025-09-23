@@ -61,6 +61,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
       defaults = {
         file_ignore_patterns = {
           '.git/',
+          'node_modules/',
+          '.venv/',
+          'venv/',
+          'dist/',
+          '.git/',
         },
         mappings = {
           i = {
@@ -102,9 +107,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>sf', function()
-      builtin.find_files { hidden = true }
+      builtin.find_files { find_command = { 'fd', '--type', 'f', '--no-ignore-vcs', '--color=never', '--hidden', '--follow' } }
     end, { desc = '[S]earch [F]iles' })
-    vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+    -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' }) NOTE: no used
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -112,6 +117,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>st', ':Telescope themes<CR>', { noremap = true, silent = true, desc = '[S]earch [T]hemes' })
+    vim.keymap.set('n', '<leader>ss', ':ScratchOpen<CR>', { noremap = true, silent = true, desc = '[S]earch [S]cratch' })
+    vim.keymap.set('n', '<leader>ns', ':Scratch<CR>', { noremap = true, silent = true, desc = '[N]ew [S]cratch' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()

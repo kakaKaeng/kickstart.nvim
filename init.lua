@@ -722,20 +722,21 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
-      end,
+      -- WARNING: DISABLE format on save. It effect on python to much
+      -- format_on_save = function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true }
+      --   if disable_filetypes[vim.bo[bufnr].filetype] then
+      --     return nil
+      --   else
+      --     return {
+      --       timeout_ms = 500,
+      --       lsp_format = 'fallback',
+      --     }
+      --   end
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -995,6 +996,10 @@ require('lazy').setup({
   require 'custom.plugins.nvim-dbee',
   require 'custom.plugins.lualine',
   require 'custom.plugins.nvim-lsp-endhints',
+  require 'custom.plugins.dotenv',
+  require 'custom.plugins.scratch',
+  require 'custom.plugins.render-markdown',
+  require 'custom.plugins.live-command',
   -- require 'custom.plugins.uv',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1037,11 +1042,6 @@ vim.api.nvim_set_hl(0, 'GitSignsDelete', { bg = '#330000' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
 
 vim.keymap.set('n', '<S-h>', ':tabprevious<CR>', { desc = 'Previous Tab' })
 vim.keymap.set('n', '<S-l>', ':tabnext<CR>', { desc = 'Next Tab' })
