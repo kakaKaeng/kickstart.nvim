@@ -68,7 +68,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           '.git/',
           '.mypy_cache/',
           '.ruff_cache/',
-          '.DS_Store',
+          '__pycache__/',
         },
         mappings = {
           i = {
