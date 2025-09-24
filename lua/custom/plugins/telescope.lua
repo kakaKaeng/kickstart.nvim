@@ -66,6 +66,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
           'venv/',
           'dist/',
           '.git/',
+          '.mypy_cache/',
+          '.ruff_cache/',
+          '.DS_Store',
         },
         mappings = {
           i = {
