@@ -143,6 +143,15 @@ return {
         -- see https://github.com/leoluz/nvim-dap-go/blob/main/readme.md#configuring
         detached = true,
       },
+      dap_configurations = {
+        {
+          type = 'go',
+          name = 'Go: Launch file',
+          request = 'launch',
+          program = '${file}', -- Debug the current file
+          cwd = '${workspaceFolder}', -- Ensure working directory is the project root
+        },
+      },
     }
   end,
 }
