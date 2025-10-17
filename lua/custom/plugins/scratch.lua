@@ -7,6 +7,15 @@ return {
   },
   opts = {
     file_picker = 'telescope',
-    filetypes = {"js", "sh", "ts", "py", "go", "txt", "md", "json"}
+    filetypes = {
+      'md',
+      'json',
+      'py',
+      'go',
+      'txt',
+      'ts',
+      'js',
+      'sh',
+    },
   },
 }
