@@ -34,6 +34,11 @@ return {
           tab_char = '│',
         },
         scope = { highlight = highlight },
+        exclude = {
+          filetypes = {
+            'dashboard',
+          },
+        },
       }
 
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)

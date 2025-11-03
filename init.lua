@@ -189,10 +189,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+-- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+-- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+-- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -471,6 +471,8 @@ require('lazy').setup({
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
+          map('td', '<cmd>TinyInlineDiag toggle<cr>', '[T]oggle [D]iagnostics')
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
@@ -575,11 +577,11 @@ require('lazy').setup({
           settings = {
             basedpyright = {
               analysis = {
+                diagnosticMode = 'openFilesOnly',
                 typeCheckingMode = 'standard',
-                reportAny = 'none',
                 useLibraryCodeForTypes = true,
-                diagnosticMode = 'workspace',
                 autoSearchPaths = true,
+                enableReachabilityAnalysis = false,
                 inlayHints = {
                   callArgumentNames = true,
                 },
@@ -610,6 +612,16 @@ require('lazy').setup({
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+
+        tilt = {
+          settings = {
+            tilt_ls = {
+              cmd = { 'tilt', 'lsp', 'start' },
+              filetypes = { 'tiltfile' },
+              root_markers = { '.git' },
             },
           },
         },
@@ -888,7 +900,17 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      require('mini.surround').setup {
+        mappings = {
+          add = 'gsa', -- Add surrounding in Normal and Visual modes
+          delete = 'gsd', -- Delete surrounding
+          find = 'gsf', -- Find surrounding (to the right)
+          find_left = 'gsF', -- Find surrounding (to the left)
+          highlight = 'gsh', -- Highlight surrounding
+          replace = 'gsr', -- Replace surrounding
+          update_n_lines = 'gsn', -- Update `n_lines`
+        },
+      }
 
       -- gS - Toggle arguments
       require('mini.splitjoin').setup()
@@ -1000,6 +1022,11 @@ require('lazy').setup({
   require 'custom.plugins.scratch',
   require 'custom.plugins.render-markdown',
   require 'custom.plugins.live-command',
+  require 'custom.plugins.tiny-inline-diagnostic',
+  require 'custom.plugins.multicursor',
+  require 'custom.plugins.neoscroll',
+  require 'custom.plugins.dashboard-nvim',
+  require 'custom.plugins.flash',
   -- require 'custom.plugins.uv',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1047,3 +1074,12 @@ vim.keymap.set('n', '<S-h>', ':tabprevious<CR>', { desc = 'Previous Tab' })
 vim.keymap.set('n', '<S-l>', ':tabnext<CR>', { desc = 'Next Tab' })
 -- Highlight todo, notes, etc in comments
 require 'colorscheme' -- Load themes
+
+-- NOTE: HARD CODE FOR NOW
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = { 'Tiltfile', '*/Tiltfile' },
+  callback = function()
+    vim.bo.filetype = 'tiltfile'
+    vim.lsp.enable 'tilt_ls'
+  end,
+})
