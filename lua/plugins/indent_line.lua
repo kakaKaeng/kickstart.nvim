@@ -37,6 +37,7 @@ return {
         exclude = {
           filetypes = {
             'dashboard',
+            'markdown',
           },
         },
       }

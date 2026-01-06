@@ -9,6 +9,12 @@ return {
     priority = 1000,
   },
   { 'ellisonleao/gruvbox.nvim', priority = 1000, config = true, opts = {} },
+  {
+    'makestatic/devel.nvim',
+    lazy = false,
+    priority = 1000,
+  },
+  { 'sainnhe/everforest' },
   -- { -- You can easily change to a different colorscheme.
   --   -- Change the name of the colorscheme plugin below, and then
   --   -- change the command in the config to whatever the name of that colorscheme is.

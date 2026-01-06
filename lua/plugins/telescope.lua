@@ -58,6 +58,32 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
       --   },
       -- },
+      pickers = {
+        find_files = {
+          theme = 'ivy',
+        },
+        live_grep = {
+          theme = 'ivy',
+        },
+        diagnostics = {
+          theme = 'ivy',
+        },
+        help_tags = {
+          theme = 'ivy',
+        },
+        keymaps = {
+          theme = 'ivy',
+        },
+        grep_string = {
+          theme = 'ivy',
+        },
+        oldfiles = {
+          theme = 'ivy',
+        },
+        themes = {
+          theme = 'ivy',
+        },
+      },
       defaults = {
         file_ignore_patterns = {
           '.git/',
@@ -69,6 +95,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
           '.mypy_cache/',
           '.ruff_cache/',
           '__pycache__/',
+          '.obsidian/',
+          '.DS_Store',
+          'target/debug/',
         },
         mappings = {
           i = {
