@@ -64,12 +64,51 @@ return {
     },
 
     -- (Default) Only show the documentation popup when manually triggered
-    completion = { documentation = { auto_show = false } },
+    completion = {
+      -- By default, you may press `<c-space>` to show the documentation.
+      -- Optionally, set `auto_show = true` to show the documentation after a delay.
+      trigger = {
+        show_on_keyword = true,
+      },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 200,
+        window = { border = 'rounded' },
+      },
+      menu = {
+        border = 'rounded',
+        draw = {
+          padding = { 0, 1 },
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'kind', gap = 4 },
+          },
+          components = {},
+          treesitter = { 'lsp' },
+        },
+      },
+      ghost_text = {
+        enabled = true,
+      },
+    },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+      providers = {
+        lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        -- copilot = {
+        --   name = 'copilot',
+        --   module = 'blink-copilot',
+        --   score_offset = 10,
+        --   async = true,
+        -- },
+      },
+    },
+
+    menu = {
+      border = 'rounded',
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance

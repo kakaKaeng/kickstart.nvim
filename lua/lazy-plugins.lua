@@ -24,7 +24,6 @@ require('lazy').setup({
   -- include a plugin definition from file lua/path/name.lua
 
   require 'plugins.nvim-web-devicons',
-  require 'plugins.gitsigns',
   require 'plugins.which-key',
   require 'plugins.lazydev',
   require 'plugins.mason-lspconfig',
