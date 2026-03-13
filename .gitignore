@@ -6,3 +6,7 @@ nvim
 spell/
 lazy-lock.json
 cache/
+
+.env
+
+lua/db_config.lua

@@ -62,8 +62,12 @@ require('lazy').setup({
   require 'plugins.flash',
   require 'plugins.venn',
   require 'plugins.listchars',
-  require 'plugins.typr',
+  -- require 'plugins.typr',
   require 'plugins.saecki-crates',
+  -- require 'plugins.codediff',
+  -- require 'plugins.smear-cursor',
+  require 'plugins.vim-dadbod',
+  require 'plugins.csvview',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and

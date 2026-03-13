@@ -96,8 +96,12 @@ return {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+      per_filetype = {
+        sql = { 'snippets', 'dadbod', 'buffer' },
+      },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
         -- copilot = {
         --   name = 'copilot',
         --   module = 'blink-copilot',
