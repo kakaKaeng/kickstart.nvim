@@ -40,7 +40,6 @@ require('lazy').setup({
   require 'plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'plugins.gitsigns', -- adds gitsigns recommend keymaps
-  require 'plugins.nvim-ufo',
   require 'plugins.text-case',
   require 'plugins.colorscheme',
   require 'plugins.telescope',
@@ -49,7 +48,6 @@ require('lazy').setup({
   require 'plugins.yazi',
   require 'plugins.nvim-treesitter-context',
   -- require 'custom.plugins.copilot',
-  require 'plugins.nvim-dbee',
   require 'plugins.lualine',
   require 'plugins.dotenv',
   require 'plugins.scratch',
@@ -64,10 +62,13 @@ require('lazy').setup({
   require 'plugins.listchars',
   -- require 'plugins.typr',
   require 'plugins.saecki-crates',
-  -- require 'plugins.codediff',
+  require 'plugins.codediff',
   -- require 'plugins.smear-cursor',
-  require 'plugins.vim-dadbod',
+  -- require 'plugins.vim-dadbod',
   require 'plugins.csvview',
+  require 'plugins.dadbod-grip',
+  require 'plugins.aerial',
+  require 'plugins.quicker',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and

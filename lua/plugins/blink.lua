@@ -95,13 +95,14 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'dadbod_grip', 'omni'},
       per_filetype = {
-        sql = { 'snippets', 'dadbod', 'buffer' },
+        sql = { 'snippets', 'buffer' },
       },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-        dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+        dadbod_grip = { name = 'Grip SQL', module = 'dadbod-grip.completion.blink' },
+
         -- copilot = {
         --   name = 'copilot',
         --   module = 'blink-copilot',
