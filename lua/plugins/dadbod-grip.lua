@@ -9,7 +9,7 @@ return {
   opts = {
     picker = 'telescope',
     completion = false,
-    limit = 50,
+    limit = 100,
     ai = false,
   },
 }

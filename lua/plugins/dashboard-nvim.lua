@@ -1,21 +1,24 @@
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  config = function()
-    require('dashboard').setup {
+  opts = function()
+    local splash = require('milli').load { splash = 'blackhole' }
+    return {
       theme = 'hyper',
       config = {
-        week_header = {
-          enable = true,
-        },
+        header = splash.frames[1], -- seed header with frame 0
         shortcut = {
           {
-            icon = ' ',
-            icon_hl = '@variable',
             desc = 'Files',
             group = 'Label',
             action = 'Telescope find_files',
             key = 'f',
+          },
+          {
+            desc = 'Quit',
+            group = 'Label',
+            action = 'q',
+            key = 'q',
           },
         },
         project = {
@@ -28,5 +31,9 @@ return {
       },
     }
   end,
-  dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+  config = function(_, opts)
+    require('dashboard').setup(opts)
+    require('milli').dashboard { splash = 'blackhole', loop = true }
+  end,
+  dependencies = { 'nvim-tree/nvim-web-devicons', 'amansingh-afk/milli.nvim' },
 }
