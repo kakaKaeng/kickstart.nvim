@@ -70,6 +70,8 @@ require('lazy').setup({
   require 'plugins.aerial',
   require 'plugins.quicker',
   require 'plugins.opencode',
+  require 'plugins.overseer',
+  require 'plugins.macrobank',
   -- require 'plugins.nvim-java',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
@@ -98,6 +100,7 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
+  concurrency = 5,
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

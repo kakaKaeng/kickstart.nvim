@@ -25,17 +25,62 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python',
+
+    'theHamsta/nvim-dap-virtual-text',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
-    { '<F5>', function() require('dap').continue() end, desc = 'Debug: Start/Continue' },
-    { '<F1>', function() require('dap').step_into() end, desc = 'Debug: Step Into' },
-    { '<F2>', function() require('dap').step_over() end, desc = 'Debug: Step Over' },
-    { '<F3>', function() require('dap').step_out() end, desc = 'Debug: Step Out' },
-    { '<leader>b', function() require('dap').toggle_breakpoint() end, desc = 'Debug: Toggle Breakpoint' },
-    { '<leader>B', function() require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ') end, desc = 'Debug: Set Breakpoint' },
+    {
+      '<F5>',
+      function()
+        require('dap').continue()
+      end,
+      desc = 'Debug: Start/Continue',
+    },
+    {
+      '<F1>',
+      function()
+        require('dap').step_into()
+      end,
+      desc = 'Debug: Step Into',
+    },
+    {
+      '<F2>',
+      function()
+        require('dap').step_over()
+      end,
+      desc = 'Debug: Step Over',
+    },
+    {
+      '<F3>',
+      function()
+        require('dap').step_out()
+      end,
+      desc = 'Debug: Step Out',
+    },
+    {
+      '<leader>b',
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = 'Debug: Toggle Breakpoint',
+    },
+    {
+      '<leader>B',
+      function()
+        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = 'Debug: Set Breakpoint',
+    },
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-    { '<F7>', function() require('dapui').toggle() end, desc = 'Debug: See last session result.' },
+    {
+      '<F7>',
+      function()
+        require('dapui').toggle()
+      end,
+      desc = 'Debug: See last session result.',
+    },
   },
   config = function()
     local dap = require 'dap'
@@ -80,6 +125,26 @@ return {
           disconnect = '⏏',
         },
       },
+      layouts = {
+        {
+          elements = {
+            { id = 'scopes', size = 0.6 },
+            { id = 'breakpoints', size = 0.2 },
+            { id = 'stacks', size = 0.2 },
+            -- { id = 'watches', size = 0.25 },
+          },
+          position = 'left',
+          size = 40,
+        },
+        {
+          elements = {
+            { id = 'repl', size = 0.5 },
+            { id = 'console', size = 0.5 },
+          },
+          position = 'bottom',
+          size = 15,
+        },
+      },
     }
 
     -- Change breakpoint icons
@@ -106,5 +171,45 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    vim.fn.sign_define('DapBreakpoint', { text = '🤔', texthl = 'DapBreakpointColor', linehl = '', numhl = '' })
+
+    -- require('nvim-dap-virtual-text').setup()
+
+    require('dap-python').setup 'uv'
+    local python_config = {
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Python: launch main file',
+        console = 'integratedTerminal',
+        program = 'main.py',
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Python: Pytest -s',
+        console = 'integratedTerminal',
+        module = 'pytest',
+        args = { '-s' },
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Python: FastAPI with uv (.env included)',
+        module = 'uvicorn',
+        args = {
+          'app.main:app',
+          '--port',
+          '8000',
+          '--reload',
+          '--env-file=.env',
+        },
+        cmd = '${workspaceFolder}',
+      },
+    }
+    for _, dict in ipairs(python_config) do
+      table.insert(dap.configurations.python, dict)
+    end
   end,
 }
