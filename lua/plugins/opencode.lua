@@ -8,6 +8,9 @@ return {
       'folke/snacks.nvim',
       optional = true,
       opts = {
+        lsp = {
+          enabled = true,
+        },
         input = {}, -- Enhances `ask()`
         picker = { -- Enhances `select()`
           actions = {

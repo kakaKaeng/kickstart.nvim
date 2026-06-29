@@ -76,9 +76,11 @@ return {
         auto_show = true,
         auto_show_delay_ms = 200,
         window = { border = 'rounded' },
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
       },
       menu = {
         border = 'rounded',
+        winhighlight = 'Normal:Normal,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
         draw = {
           padding = { 0, 1 },
           columns = {
@@ -97,7 +99,7 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'dadbod_grip'},
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'dadbod_grip' },
       per_filetype = {
         lua = { inherit_defaults = true, 'lazydev' },
       },
