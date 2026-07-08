@@ -6,6 +6,7 @@ return {
             "rust_analyzer",
             "basedpyright",
             "gopls",
+            "vtsls",
 
         },
     },

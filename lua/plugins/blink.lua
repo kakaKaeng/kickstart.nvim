@@ -75,8 +75,11 @@ return {
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 200,
-        window = { border = 'rounded' },
-        winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
+        window = {
+          border = 'rounded',
+          winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
+        },
+        -- winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
       },
       menu = {
         border = 'rounded',
