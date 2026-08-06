@@ -72,6 +72,7 @@ require('lazy').setup({
   require 'plugins.opencode',
   require 'plugins.overseer',
   require 'plugins.macrobank',
+  require 'plugins.snacks',
   -- require 'plugins.nvim-java',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the

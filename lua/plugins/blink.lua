@@ -106,10 +106,12 @@ return {
       default = { 'lsp', 'path', 'snippets', 'buffer', 'dadbod_grip' },
       per_filetype = {
         lua = { inherit_defaults = true, 'lazydev' },
+        opencode_ask = { 'lsp', 'buffer' },
       },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         dadbod_grip = { name = 'Grip SQL', module = 'dadbod-grip.completion.blink' },
+        lsp = { fallbacks = {} },
 
         -- copilot = {
         --   name = 'copilot',

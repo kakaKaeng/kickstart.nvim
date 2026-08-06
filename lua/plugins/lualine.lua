@@ -20,7 +20,13 @@ return {
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = { 'progress' },
+        lualine_y = {
+          'progress',
+          {
+            -- Show the currently connected server and its status
+            require('opencode').statusline,
+          },
+        },
         lualine_z = { 'location' },
       },
       inactive_sections = {

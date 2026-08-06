@@ -2,6 +2,7 @@ return {
   {
     'rebelot/kanagawa.nvim',
     opts = {
+      -- transparent = true,
       colors = {
         theme = {
           all = {
@@ -31,6 +32,20 @@ return {
   { 'ellisonleao/gruvbox.nvim', priority = 1000, config = true, opts = {} },
   { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 },
   { 'zitrocode/carvion.nvim', lazy = false, priority = 1000, opts = {} }, -- lazy.nvim
+  { 'DonJulve/NeoCyberVim', opts = {
+    transparent = true,
+  } },
+  {
+    'Aejkatappaja/cendre',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('cendre').setup {
+        background = 'hard', -- "hard" | "medium" | "soft"
+        italic = false,
+      }
+    end,
+  },
   -- { -- You can easily change to a different colorscheme.
   --   -- Change the name of the colorscheme plugin below, and then
   --   -- change the command in the config to whatever the name of that colorscheme is.
