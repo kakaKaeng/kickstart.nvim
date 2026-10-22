@@ -90,7 +90,7 @@ return {
             { 'kind_icon' },
             { 'label' },
             { 'kind' },
-            { 'source_name' },
+            -- { 'source_name' },
           },
           components = {},
           treesitter = { 'lsp' },

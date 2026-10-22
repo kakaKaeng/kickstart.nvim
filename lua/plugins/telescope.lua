@@ -99,14 +99,16 @@ return { -- Fuzzy Finder (files, lsp, etc)
           '.DS_Store',
           'target/debug/',
         },
-        mappings = {
-          i = {
-            ['<c-d>'] = actions.delete_buffer,
-          },
-          n = {
-            ['<c-d>'] = actions.delete_buffer,
-            ['dd'] = actions.delete_buffer,
-          },
+        mappings = {},
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          '--fixed-strings', -- Add this line to disable regex by default
         },
       },
       extensions = {
@@ -147,9 +149,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+    vim.keymap.set('n', '<leader>sc', ':TodoTelescope<CR>', { desc = '[S]earch Todo [C]omment' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>st', ':Telescope themes<CR>', { noremap = true, silent = true, desc = '[S]earch [T]hemes' })
-    vim.keymap.set('n', '<leader>ss', ':ScratchOpen<CR>', { noremap = true, silent = true, desc = '[S]earch [S]cratch' })
+    -- NOTE: `<leader>ss` (scratch, recent-first) is defined in lua/plugins/scratch.lua
+    -- to keep the telescope picker sorted by mtime. Don't re-add :ScratchOpen here.
     vim.keymap.set('n', '<leader>ns', ':Scratch<CR>', { noremap = true, silent = true, desc = '[N]ew [S]cratch' })
 
     -- Slightly advanced example of overriding default behavior and theme
